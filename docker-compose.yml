@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres123
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init-scripts:/docker-entrypoint-initdb.d
@@ -18,7 +18,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 3
 
   # Keycloak Identity and Access Management
   keycloak:
@@ -48,8 +48,8 @@ services:
         ["CMD-SHELL", "curl -f http://localhost:8080/realms/master || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 15
-      start_period: 90s
+      retries: 10
+      start_period: 60s
     volumes:
       - ./keycloak/import:/opt/keycloak/data/import
 
@@ -81,7 +81,7 @@ services:
       redis:
         condition: service_started
     volumes:
-      - ../ai.synthai.src.authorization.backend:/app
+      - ../ai.synthai.src.authorization.backend/src:/app/src:cached
       - /app/node_modules
     networks:
       - synthai-network
@@ -132,13 +132,16 @@ services:
       REACT_APP_KEYCLOAK_REALM: synthai
       REACT_APP_KEYCLOAK_CLIENT_ID: synthai-frontend-client
       NODE_ENV: development
+      FAST_REFRESH: true
+      CHOKIDAR_USEPOLLING: true
     ports:
       - "3000:3000"
     depends_on:
       - logic-service
       - auth-service
     volumes:
-      - ../ai.synthai.src.frontend:/app
+      - ../ai.synthai.src.frontend/src:/app/src:cached
+      - ../ai.synthai.src.frontend/public:/app/public:cached
       - /app/node_modules
     networks:
       - synthai-network
@@ -154,11 +157,6 @@ services:
       - redis_data:/data
     networks:
       - synthai-network
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
     restart: unless-stopped
 
   # Nginx Reverse Proxy
