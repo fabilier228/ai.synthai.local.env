@@ -142,7 +142,6 @@ services:
       - auth-service
     volumes:
       - ../ai.synthai.src.frontend/src:/app/src:cached
-      - ../ai.synthai.src.frontend/public:/app/public:cached
       - /app/node_modules
     networks:
       - synthai-network
