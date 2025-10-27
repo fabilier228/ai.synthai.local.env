@@ -4,9 +4,9 @@ services:
     image: postgres:15
     container_name: synthai-postgres
     environment:
-      POSTGRES_DB: synthai_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5432"
     volumes:
@@ -25,17 +25,17 @@ services:
     image: quay.io/keycloak/keycloak:23.0
     container_name: synthai-keycloak
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin123
-      KC_DB: postgres
-      KC_DB_SCHEMA: keycloak
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak_db
-      KC_DB_USERNAME: keycloak_user
-      KC_DB_PASSWORD: keycloak123
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: ${KC_DB}
+      KC_DB_SCHEMA: ${KC_DB_SCHEMA}
+      KC_DB_URL: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${KEYCLOAK_DB}
+      KC_DB_USERNAME: ${KEYCLOAK_USER}
+      KC_DB_PASSWORD: ${KEYCLOAK_PASSWORD}
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_HTTP_ENABLED: true
-      KC_PROXY: edge
+      KC_PROXY: ${KC_PROXY}
     ports:
       - "8080:8080"
     depends_on:
@@ -61,19 +61,19 @@ services:
       dockerfile: Dockerfile
     container_name: synthai-auth-service
     environment:
-      NODE_ENV: development
-      PORT: 3001
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: synthai_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres123
-      KEYCLOAK_URL: http://keycloak:8080
-      KEYCLOAK_REALM: synthai
-      KEYCLOAK_CLIENT_ID: synthai-auth-client
-      KEYCLOAK_CLIENT_SECRET: your-auth-client-secret
-      JWT_SECRET: your-jwt-secret-key
-      REDIS_URL: redis://redis:6379
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${AUTH_SERVICE_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_AUTH_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_AUTH_CLIENT_SECRET}
+      JWT_SECRET: ${AUTH_SERVICE_JWT_SECRET}
+      REDIS_URL: ${REDIS_URL}
     ports:
       - "3001:3001"
     depends_on:
@@ -95,18 +95,18 @@ services:
       dockerfile: Dockerfile
     container_name: synthai-logic-service
     environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/synthai_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres123
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      AUTH_SERVICE_URL: http://auth-service:3001
-      KEYCLOAK_URL: http://keycloak:8080
-      KEYCLOAK_REALM: synthai
-      KEYCLOAK_CLIENT_ID: synthai-logic-client
-      KEYCLOAK_CLIENT_SECRET: your-logic-client-secret
-      REDIS_URL: redis://redis:6379
-      SERVER_PORT: 8081
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      AUTH_SERVICE_URL: http://auth-service:${AUTH_SERVICE_PORT}
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_LOGIC_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_LOGIC_CLIENT_SECRET}
+      REDIS_URL: ${REDIS_URL}
+      SERVER_PORT: ${LOGIC_SERVICE_PORT}
     ports:
       - "8081:8081"
     depends_on:
@@ -127,14 +127,14 @@ services:
       dockerfile: Dockerfile
     container_name: synthai-frontend
     environment:
-      REACT_APP_API_URL: http://localhost:8081
-      REACT_APP_AUTH_SERVICE_URL: http://localhost:3001
-      REACT_APP_KEYCLOAK_URL: http://localhost:8080
-      REACT_APP_KEYCLOAK_REALM: synthai
-      REACT_APP_KEYCLOAK_CLIENT_ID: synthai-frontend-client
-      NODE_ENV: development
+      REACT_APP_API_URL: http://localhost:${LOGIC_SERVICE_PORT}
+      REACT_APP_AUTH_SERVICE_URL: http://localhost:${AUTH_SERVICE_PORT}
+      REACT_APP_KEYCLOAK_URL: ${KEYCLOAK_URL}
+      REACT_APP_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      REACT_APP_KEYCLOAK_CLIENT_ID: ${KEYCLOAK_FRONTEND_CLIENT_ID}
+      NODE_ENV: ${NODE_ENV}
       FAST_REFRESH: true
-      CHOKIDAR_USEPOLLING: true
+      CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
     ports:
       - "3000:3000"
     depends_on:
