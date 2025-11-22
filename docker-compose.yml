@@ -130,6 +130,20 @@ services:
       - synthai-network
     restart: unless-stopped
 
+  # Emotion Recognition Microservice (FastAPI)
+  emotion-recognition:
+    build:
+      context: ../ai.synthai.src.emotion.recognition
+      dockerfile: Dockerfile
+    container_name: synthai-emotion-recognition
+    environment:
+      EMOTION_SERVICE_PORT: ${EMOTION_SERVICE_PORT}
+    ports:
+      - "8082:8082"
+    networks:
+      - synthai-network
+    restart: unless-stopped
+
   # Frontend Application (React)
   frontend:
     build:
