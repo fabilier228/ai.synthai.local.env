@@ -41,7 +41,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: start-dev
+    command: start-dev --import-realm
     networks:
       - synthai-network
     healthcheck:
@@ -69,9 +69,11 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_INTERNAL_URL: ${KEYCLOAK_INTERNAL_URL}
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
       KEYCLOAK_CLIENT_ID: ${KEYCLOAK_AUTH_CLIENT_ID}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_AUTH_CLIENT_SECRET}
+      KEYCLOAK_REDIRECT_URI: ${KEYCLOAK_REDIRECT_URI}
       JWT_SECRET: ${AUTH_SERVICE_JWT_SECRET}
       REDIS_URL: ${REDIS_URL}
     ports:
