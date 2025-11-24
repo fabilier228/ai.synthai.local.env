@@ -413,9 +413,10 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "mshNGMtC4aUJuKRRZBbBZ1RemmD3rsWb",
       "redirectUris": [
-        "http://localhost:3001/api/auth/callback"
+        "http://localhost:3000/auth/callback"
       ],
       "webOrigins": [
+        "http://localhost:3000",
         "http://localhost:3001"
       ],
       "notBefore": 0,
