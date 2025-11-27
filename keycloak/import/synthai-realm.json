@@ -28,7 +28,7 @@
   "oauth2DeviceCodeLifespan": 600,
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
-  "sslRequired": "external",
+  "sslRequired": "none",
   "registrationAllowed": true,
   "registrationEmailAsUsername": false,
   "rememberMe": true,
@@ -413,11 +413,14 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "mshNGMtC4aUJuKRRZBbBZ1RemmD3rsWb",
       "redirectUris": [
-        "http://localhost:3000/auth/callback"
+        "http://localhost:3000/auth/callback",
+        "https://synthai.pl/auth/callback"
       ],
       "webOrigins": [
         "http://localhost:3000",
-        "http://localhost:3001"
+        "http://localhost:3001",
+        "https://synthai.pl",
+        "https://www.synthai.pl"
       ],
       "notBefore": 0,
       "bearerOnly": false,
