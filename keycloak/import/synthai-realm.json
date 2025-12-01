@@ -414,7 +414,8 @@
       "secret": "mshNGMtC4aUJuKRRZBbBZ1RemmD3rsWb",
       "redirectUris": [
         "http://localhost:3000/auth/callback",
-        "https://synthai.pl/auth/callback"
+        "https://synthai.pl/auth/callback",
+        "http://localhost:3001/api/auth/callback"
       ],
       "webOrigins": [
         "http://localhost:3000",
@@ -780,6 +781,22 @@
             "access.token.claim": "true",
             "claim.name": "zoneinfo",
             "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "f58406bc-248e-446f-8fb8-9e7f776cafae",
+          "name": "registration_date",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "user.attribute": "createdTimestamp",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "registration_date",
+            "jsonType.label": "long"
           }
         },
         {
