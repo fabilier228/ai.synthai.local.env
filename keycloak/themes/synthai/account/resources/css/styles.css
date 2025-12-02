@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;900&display=swap');
+
+#referrerLink {
+    background-color: #7E87EF !important;
+    padding: 5px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Exo 2';
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0;
+  }
+
+  #referrerLink::before {
+    content: "Back to";
+    font-weight: 700;
+    font-family: 'Urbanist', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+    order: 1;
+    font-size: 21px;
+    margin-left: 2px;
+    position: relative;
+    top: 1px;
+  }
+  
+  #referrerLink::after {
+    content: "Synthai";
+    order: 2;
+    font-size: 22px;
+    font-weight: 700;
+    margin-left: 10px;
+    display: inline-block;
+    background-image: url('../img/logo.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 30px 30px;
+    padding-left: 35px; 
+  }
+  
+  /* SVG – pierwszy element */
+  #referrerLink svg {
+    order: 0;
+    width: 0.9em !important;
+    height: 0.9em !important;
+    margin-right: 0.25rem !important;
+    font-size: 22px;
+  }
