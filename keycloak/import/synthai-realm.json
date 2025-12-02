@@ -409,6 +409,53 @@
       }
     ]
   },
+  "roles": {
+    "realm": [
+      {
+        "name": "admin",
+        "description": "Administrator role",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "user",
+        "description": "User role",
+        "composite": false,
+        "clientRole": false
+      }
+    ],
+    "client": {}
+  },
+  "users": [
+    {
+      "id": "d0b74623-0982-48dd-a8d0-78963e6c8123",
+      "username": "admin",
+      "enabled": true,
+      "email": "admin@synthai.pl",
+      "firstName": "Admin",
+      "lastName": "SynthAI",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "admin",
+        "default-roles-synthai"
+      ],
+      "clientRoles": {
+        "account": [
+          "manage-account",
+          "view-profile"
+        ],
+        "realm-management": [
+          "realm-admin"
+        ]
+      }
+    }
+  ],
   "clients": [
     {
       "id": "5be20b54-53a2-4cc0-8ec5-335ec34d41f5",
