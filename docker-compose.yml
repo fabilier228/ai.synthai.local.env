@@ -54,6 +54,7 @@ services:
       start_period: 60s
     volumes:
       - ./keycloak/import:/opt/keycloak/data/import
+      - ./keycloak/themes:/opt/keycloak/themes
 
   # Authorization Backend Service (Node.js/Express)
   auth-service:
