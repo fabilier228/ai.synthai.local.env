@@ -84,6 +84,18 @@
         "clientRole": false,
         "containerId": "fad53e26-bd86-4950-895c-54b08ac4aae9",
         "attributes": {}
+      },
+      {
+        "name": "admin",
+        "description": "Administrator role",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "user",
+        "description": "User role",
+        "composite": false,
+        "clientRole": false
       }
     ],
     "client": {
@@ -408,23 +420,6 @@
         ]
       }
     ]
-  },
-  "roles": {
-    "realm": [
-      {
-        "name": "admin",
-        "description": "Administrator role",
-        "composite": false,
-        "clientRole": false
-      },
-      {
-        "name": "user",
-        "description": "User role",
-        "composite": false,
-        "clientRole": false
-      }
-    ],
-    "client": {}
   },
   "users": [
     {
