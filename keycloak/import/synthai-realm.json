@@ -810,11 +810,14 @@
       "redirectUris": [
         "https://oauth.pstmn.io/v1/browser-callback",
         "http://localhost:3000/*",
-        "https://oauth.pstmn.io/v1/vscode-callback"
+        "https://oauth.pstmn.io/v1/vscode-callback",
+        "https://synthai.pl/*",
+        "https://synthai.pl/api/auth/callback"
       ],
       "webOrigins": [
         "https://oauth.pstmn.io",
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "https://synthai.pl"
       ],
       "notBefore": 0,
       "bearerOnly": false,
